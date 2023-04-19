@@ -5,7 +5,7 @@ using Multitenant.API.Domain;
 namespace Multitenant.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("{tenant}/[controller]")]
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
