@@ -16,6 +16,7 @@ namespace Multitenant.API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("dbo")
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -39,7 +40,7 @@ namespace Multitenant.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People");
+                    b.ToTable("People", "dbo");
 
                     b.HasData(
                         new
@@ -80,7 +81,7 @@ namespace Multitenant.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", "dbo");
 
                     b.HasData(
                         new

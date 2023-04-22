@@ -5,7 +5,7 @@ namespace Multitenant.API.Middlewares
 {
     /// <summary>
     /// Ao ser invocado irá criar uma instância do TenantData
-    /// Tal que para o tenant instânciado ele recuperará qual o tenant
+    /// Tal que para o tenant instânciado ele recuperará qual o tenant que
     /// está acessando a aplicação.
     /// </summary>
     public class TenantMiddleware

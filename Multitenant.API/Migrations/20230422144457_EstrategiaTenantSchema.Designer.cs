@@ -11,14 +11,15 @@ using Multitenant.API.Data;
 namespace Multitenant.API.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230419010747_Tenant01")]
-    partial class Tenant01
+    [Migration("20230422144457_EstrategiaTenantSchema")]
+    partial class EstrategiaTenantSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("dbo")
                 .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -42,7 +43,7 @@ namespace Multitenant.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("People");
+                    b.ToTable("People", "dbo");
 
                     b.HasData(
                         new
@@ -83,7 +84,7 @@ namespace Multitenant.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", "dbo");
 
                     b.HasData(
                         new
