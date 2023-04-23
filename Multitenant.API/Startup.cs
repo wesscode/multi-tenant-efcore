@@ -6,6 +6,7 @@ using Multitenant.API.Data;
 using Multitenant.API.Data.Interceptors;
 using Multitenant.API.Data.ModelFactory;
 using Multitenant.API.Domain;
+using Multitenant.API.Extensions;
 using Multitenant.API.Middlewares;
 using Multitenant.API.Provider;
 
@@ -40,6 +41,8 @@ namespace EFCore.Multitenant
                     .EnableSensitiveDataLogging());
             */
 
+            /* 
+             * ESTRATÉGIA 2 (Interceptor e ModelFactory)
             //services.AddScoped<StrategySchemaInterceptor>(); //para recuperar o intercepto com run time, preciso adicionar a instancia a um escopo.
             services.AddDbContext<ApplicationContext>((provider, optionsBuilder) =>
             {
@@ -50,8 +53,27 @@ namespace EFCore.Multitenant
                     .EnableSensitiveDataLogging();
 
                 //Fazendo replace SCHEMA com interceptor. Recuperado com interceptor em runtime, pois preciso do TenantData Preenchido.
-                /*var interceptor = provider.GetRequiredService<StrategySchemaInterceptor>();
-                optionsBuilder.AddInterceptors(interceptor);*/
+                //var interceptor = provider.GetRequiredService<StrategySchemaInterceptor>();
+                //optionsBuilder.AddInterceptors(interceptor);
+            });
+            */
+
+            //ESTRATÉGIA 3
+            services.AddHttpContextAccessor();//preciso dessa injeção: pq quando estou utilizando serviço e preciso acessar no contexto, obrigatóriamete preciso fazer a injeção desse serviço, para ter acesso do httpContext.
+            services.AddScoped<ApplicationContext>(provider =>
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+                var httpContext = provider.GetService<IHttpContextAccessor>()?.HttpContext;
+                var tenantId = httpContext?.GetTenantId();
+
+                //var connectioString = Configuration.GetConnectionString(tenantId);
+                var connectioString = Configuration.GetConnectionString("custom").Replace("_DATABASE_", tenantId);
+                optionsBuilder
+                    .UseSqlServer(connectioString)
+                    .LogTo(Console.WriteLine)
+                    .EnableSensitiveDataLogging();
+
+                return new ApplicationContext(optionsBuilder.Options);
             });
         }
 
@@ -73,7 +95,7 @@ namespace EFCore.Multitenant
 
             app.UseAuthorization();
 
-            app.UseMiddleware<TenantMiddleware>();
+            //app.UseMiddleware<TenantMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

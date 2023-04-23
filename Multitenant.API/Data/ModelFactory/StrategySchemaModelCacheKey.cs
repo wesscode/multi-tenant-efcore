@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Multitenant.API.Data.ModelFactory
 {
+    /* Estratégia 02
     //SEMPRE QUE CRIAR UMA ISTANCIA DO APPCONTEXT E FOR EXECUTAR UMA CONSULTA, OBTEREMOS O SCHEMA DO TENANT DATA E PASSAREMOS PARA OS ARQUIVOS DE MODEL CACHE DO ENTITY
     public class StrategySchemaModelCacheKey : IModelCacheKeyFactory
     {
@@ -18,4 +19,5 @@ namespace Multitenant.API.Data.ModelFactory
             return model;
         }
     }
+    */
 }

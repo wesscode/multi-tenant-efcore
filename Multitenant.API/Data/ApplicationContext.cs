@@ -6,19 +6,18 @@ namespace Multitenant.API.Data
 {
     public class ApplicationContext : DbContext
     {
-        public readonly TenantData _tenant;
-
+        //public readonly TenantData _tenant;
         public DbSet<Person> People { get; set; }
         public DbSet<Product> Products { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options, TenantData tenant) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options  /*TenantData tenant */) : base(options)
         {
-            _tenant = tenant;
+            //_tenant = tenant;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema(_tenant.TenantId); //Para quando utilizar o replace SCHEMA com FactoryCacheKey
+            //modelBuilder.HasDefaultSchema(_tenant.TenantId); //Para quando utilizar o replace SCHEMA com FactoryCacheKey
 
             modelBuilder.Entity<Person>().HasData(
                new Person { Id = 1, Name = "Person 1", TenantId = "tenant-1" },
