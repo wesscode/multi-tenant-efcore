@@ -12,8 +12,8 @@
   * Consulta com filtros para cada query por cliente.
 - Schema
   * A menos indicada pois da bem mais trabalho para dar manutenção.
-  * Ultilizar o mesmo banco de dados para todos os inquilinos(clientes).
-  * Porém segregados a informação de cada cliente segregada por schema.
+  * Utiliza o mesmo banco de dados para todos os inquilinos(clientes).
+  * Informação de cada cliente é segregada por SCHEMA no banco de dados.
 - Banco de dados
   * A melhor estratégia ao utilizar o estilo de arquitetura multitenant.
   * Permite Segregar as informação dos clientes por banco de dados isoladamente.
