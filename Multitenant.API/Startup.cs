@@ -10,7 +10,7 @@ using Multitenant.API.Extensions;
 using Multitenant.API.Middlewares;
 using Multitenant.API.Provider;
 
-namespace EFCore.Multitenant
+namespace Multitenant.API
 {
     public class Startup
     {
